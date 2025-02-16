@@ -1,0 +1,21 @@
+{
+  "name": "mono-web",
+  "version": "1",
+  "description": "Лабораторные работы по предмету Основы веб-разработки",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/exodie/mono-web.git"
+  },
+  "keywords": [],
+  "author": "Ivan Mitrofanov",
+  "maintainers": [
+    {
+      "name": "iamitrofanov"
+    }
+  ],
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/exodie/mono-web/issues"
+  },
+  "homepage": "https://github.com/exodie/mono-web#readme"
+}
