@@ -152,6 +152,12 @@ eventsRouter.get("/:id", async (req: Request, res: Response) => {
  *               $ref: '#/components/schemas/Event'
  *       400:
  *         description: Неверные данные
+ *       429:
+ *         description: Превышен дневной лимит мероприятий
+ *         content:
+ *           application/json:
+ *             example:
+ *               message: "Дневной лимит на создание ивентов превышен (не более 5 шт. в сутки)"
  *       500:
  *         description: Ошибка сервера
  */
@@ -170,11 +176,44 @@ eventsRouter.post("/", async (req: Request, res: Response) => {
       return;
     }
 
+    // Number тож не плохо смотрится, но парсить надежней как кажется
+    const DAILY_EVENT_LIMIT = parseInt(
+      process.env.DAILY_EVENT_LIMIT || "5",
+      10
+    );
+
+    if (isNaN(DAILY_EVENT_LIMIT)) {
+      console.error("Invalid DAILY_EVENT_LIMIT in .env, using default value 5");
+
+      throw new Error();
+    }
+
+    // TODO: Tests
+    const twentyFourHoursAgo = new Date(Date.now() - 24 * 60 * 60 * 1000);
+
+    const eventCount = await Event.count({
+      where: {
+        createdBy,
+        createdAt: {
+          [Op.gte]: twentyFourHoursAgo,
+        },
+      },
+    });
+
+    if (eventCount >= DAILY_EVENT_LIMIT) {
+      res.status(429).json({
+        message: `Дневной лимит на создание ивентов превышен (не более ${DAILY_EVENT_LIMIT} шт. в сутки)`,
+      });
+
+      return;
+    }
+
     const event = await Event.create({
       title,
       description: description ?? null,
       date,
       createdBy,
+      createdAt: new Date()
     });
 
     res.status(200).json(event);
