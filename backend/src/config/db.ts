@@ -2,7 +2,7 @@ import { Sequelize } from "@sequelize/core";
 import { PostgresDialect } from "@sequelize/postgres";
 import { config } from "dotenv";
 
-config()
+config();
 
 export const sequelize = new Sequelize({
   dialect: PostgresDialect,
