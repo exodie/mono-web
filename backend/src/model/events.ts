@@ -8,6 +8,7 @@ export class Event extends Model {
   declare description: string;
   declare date: Date;
   declare createdBy: number;
+  declare createdAt: Date;
 }
 
 Event.init(
@@ -34,10 +35,16 @@ Event.init(
     createdBy: {
       type: DataTypes.INTEGER,
       allowNull: false,
+      index: true,
       references: {
         model: User,
         key: "id",
       },
+    },
+    createdAt: {
+      type: DataTypes.DATE,
+      allowNull: false,
+      index: true,
     },
   },
   {
