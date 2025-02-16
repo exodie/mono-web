@@ -1,5 +1,8 @@
 import { Sequelize } from "@sequelize/core";
 import { PostgresDialect } from "@sequelize/postgres";
+import { config } from "dotenv";
+
+config()
 
 export const sequelize = new Sequelize({
   dialect: PostgresDialect,
@@ -16,6 +19,9 @@ const checkConnection = async () => {
   try {
     await sequelize.authenticate();
     console.log("Connection has been established successfully.");
+
+    await sequelize.sync({ alter: true });
+    console.log("Models sync. successfully.");
   } catch (e) {
     console.error("Unable to connect to the database:", e);
   }
