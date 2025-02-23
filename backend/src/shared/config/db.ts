@@ -2,6 +2,9 @@ import { Sequelize } from "@sequelize/core";
 import { PostgresDialect } from "@sequelize/postgres";
 import { config } from "dotenv";
 
+import { logger } from "../utils";
+import { REVERSED_DB_PORT } from "../constants";
+
 config();
 
 export const sequelize = new Sequelize({
@@ -10,21 +13,22 @@ export const sequelize = new Sequelize({
   user: process.env.DB_USER,
   password: process.env.DB_PASS,
   host: process.env.DB_HOST,
-  port: Number(process.env.DB_PORT) || 5432,
-  logging: console.log,
+  port: Number(process.env.DB_PORT) || REVERSED_DB_PORT,
+  logging: (msg) => logger.debug(msg),
   clientMinMessages: "notice",
+  logQueryParameters: true,
+  benchmark: true,
 });
 
-const checkConnection = async () => {
+export const dbAuthenticate = async () => {
   try {
     await sequelize.authenticate();
-    console.log("Connection has been established successfully.");
-
+    logger.info("Models synchronized successfully");
     await sequelize.sync({ alter: true });
-    console.log("Models sync. successfully.");
+    logger.info("Database connection established");
   } catch (e) {
-    console.error("Unable to connect to the database:", e);
+    logger.error("Database connection/sync failed", e);
+
+    throw e;
   }
 };
-
-checkConnection();

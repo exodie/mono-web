@@ -1,0 +1,34 @@
+import { NextFunction, Request, Response } from "express";
+import * as UsersService from "./users.service";
+import { type CreateUserDto } from "./dto";
+import { logger } from "../../shared/utils";
+
+type ControllerProps = {
+  req: Request;
+  res: Response;
+  next: NextFunction;
+};
+
+export const getAllUsers = async (_: Request, res: Response, next: NextFunction) => {
+  try {
+    const users = await UsersService.getAllUsers();
+    res.status(200).json(users);
+  } catch (error) {
+    next(error);
+  }
+};
+
+export const createUser = async (req: Request, res: Response, next: NextFunction) => {
+  try {
+    const createUserDto: CreateUserDto = req.body;
+    const user = await UsersService.createUser(createUserDto);
+    res.status(201).json({
+      id: user.id,
+      name: user.name,
+      email: user.email,
+      createdAt: user.createdAt,
+    });
+  } catch (error) {
+    next(error);
+  }
+};

@@ -1,33 +1,68 @@
-import express, { json } from "express";
+import express from "express";
 import cors from "cors";
 import { config } from "dotenv";
 import morgan from "morgan";
 import swaggerJSDoc from "swagger-jsdoc";
 import swaggerUi from "swagger-ui-express";
+import fs from "fs";
+import path from "path";
 
-import { api } from "./routes";
-import { getSwaggerOptions } from "./config/swagger";
+import { logger } from "./shared/utils";
+import { dbAuthenticate } from "./shared/config";
+import { api, getSwaggerOptions } from "./shared/config";
+import { API_ROUTES, API_DOCS, RESERVED_PORT } from "./shared/constants";
+
+// Инициализация логов
+const logsDir = path.join(process.cwd(), "logs");
+if (!fs.existsSync(logsDir)) {
+  fs.mkdirSync(logsDir, { recursive: true });
+}
 
 config();
 
-const app = express();
-const PORT = process.env.PORT || 8001;
+const runServer = async () => {
+  try {
+    await dbAuthenticate();
 
-const swaggerOptions = getSwaggerOptions;
+    const app = express();
+    const PORT = Number(process.env.PORT) || RESERVED_PORT;
 
-const SWAGGER_OPTIONS = swaggerJSDoc(swaggerOptions(Number(PORT)));
+    const morganStream = {
+      write: (message: string) => logger.http(message.trim()),
+    };
 
-app.use(cors());
-app.use(json());
-app.use(morgan("[HTTP] :method :url :status - :response-time ms"));
+    const swaggerOptions = swaggerJSDoc(getSwaggerOptions(PORT));
 
-app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(SWAGGER_OPTIONS));
-app.use("/api", api);
+    app.use(cors());
+    app.use(express.json());
+    app.use(
+      morgan("[HTTP] :method :url :status - :response-time ms", {
+        stream: morganStream,
+      })
+    );
 
-app.get("/", (_req, res) => {
-  res.send({ message: "Hello World!" });
+    app.use(API_DOCS, swaggerUi.serve, swaggerUi.setup(swaggerOptions));
+    app.use(API_ROUTES, api);
+
+    app.listen(PORT, () => {
+      logger.info(`Server started on port ${PORT}`);
+      logger.info(`Docs available at http://localhost:${PORT}${API_DOCS}`);
+    });
+  } catch (error) {
+    logger.error("Failed to initialize application", error);
+    process.exit(1);
+  }
+};
+
+// Обработка непойманных исключений
+process.on("uncaughtException", (error) => {
+  logger.error("Uncaught Exception", error);
+  process.exit(1);
 });
 
-app.listen(PORT, () => {
-  console.log(`Application listening on http://localhost:${PORT}`);
+process.on("unhandledRejection", (reason) => {
+  logger.error("Unhandled Rejection", reason);
+  process.exit(1);
 });
+
+runServer();

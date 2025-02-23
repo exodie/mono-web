@@ -1,5 +1,5 @@
 import { Model, DataTypes } from "@sequelize/core";
-import { sequelize } from "../config/db";
+import { sequelize } from "../shared/config";
 import { User } from "./users";
 
 export class Event extends Model {
@@ -11,7 +11,7 @@ export class Event extends Model {
   declare createdAt: Date;
 }
 
-Event.init(
+export const EventModel = Event.init(
   {
     id: {
       type: DataTypes.INTEGER,

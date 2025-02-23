@@ -1,14 +1,12 @@
 {
   "name": "backend",
-  "version": "0.5.0",
+  "version": "0.6.0",
   "main": "./src/app.js",
   "scripts": {
-    "dev": "nodemon ./src/index.ts"
+    "dev": "nodemon ./src/app.ts"
   },
-  "keywords": [],
   "author": "iamitrofanov",
   "license": "ISC",
-  "description": "",
   "dependencies": {
     "@sequelize/postgres": "^7.0.0-alpha.44",
     "cors": "^2.8.5",
@@ -17,7 +15,9 @@
     "morgan": "^1.10.0",
     "sequelize": "^6.37.5",
     "swagger-jsdoc": "^6.2.8",
-    "swagger-ui-express": "^5.0.1"
+    "swagger-ui-express": "^5.0.1",
+    "winston": "^3.17.0",
+    "winston-daily-rotate-file": "^5.0.0"
   },
   "devDependencies": {
     "@types/cors": "^2.8.17",

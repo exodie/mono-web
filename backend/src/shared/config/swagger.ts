@@ -5,7 +5,7 @@ export const getSwaggerOptions = (port: number) => {
       openapi: "3.0.0",
       info: {
         title: "Mono-web",
-        version: "0.4.0",
+        version: "0.6.0",
         description: "API для управления мероприятиями и пользователями",
       },
       servers: [
@@ -38,6 +38,6 @@ export const getSwaggerOptions = (port: number) => {
         },
       },
     },
-    apis: ["./src/routes/*.ts"],
+    apis: ["./src/modules/*/*.ts"],
   };
 };
