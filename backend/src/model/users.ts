@@ -1,5 +1,5 @@
 import { Model, DataTypes } from "@sequelize/core";
-import { sequelize } from "../config/db";
+import { sequelize } from "../shared/config";
 
 export class User extends Model {
   declare id: number;
@@ -26,7 +26,7 @@ User.init(
     email: {
       type: DataTypes.STRING(100),
       allowNull: false,
-      unique: "custom_email_unique", // Исправление здесь
+      unique: "custom_email_unique",
       validate: {
         isEmail: true,
         notEmpty: true,
@@ -44,7 +44,7 @@ User.init(
     timestamps: false,
     indexes: [
       {
-        name: "custom_email_unique", // Явное задание имени индекса
+        name: "custom_email_unique",
         unique: true,
         fields: ["email"],
       },
