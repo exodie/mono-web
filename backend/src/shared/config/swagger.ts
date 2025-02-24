@@ -32,6 +32,7 @@ export const getSwaggerOptions = (port: number) => {
               id: { type: "integer" },
               name: { type: "string" },
               email: { type: "string", format: "email" },
+              password: { type: "string", minLength: 8 },
               createdAt: { type: "string", format: "date-time" },
             },
           },

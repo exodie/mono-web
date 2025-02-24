@@ -1,13 +1,6 @@
 import { NextFunction, Request, Response } from "express";
 import * as UsersService from "./users.service";
 import { type CreateUserDto } from "./dto";
-import { logger } from "../../shared/utils";
-
-type ControllerProps = {
-  req: Request;
-  res: Response;
-  next: NextFunction;
-};
 
 export const getAllUsers = async (_: Request, res: Response, next: NextFunction) => {
   try {

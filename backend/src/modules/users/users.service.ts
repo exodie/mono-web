@@ -1,3 +1,4 @@
+import { hash } from "bcryptjs";
 import { User } from "../../model/users";
 import { CreateUserDto } from "./dto";
 
@@ -8,9 +9,9 @@ export const getAllUsers = async () => {
 };
 
 export const createUser = async (createUserDto: CreateUserDto) => {
-  const { name, email } = createUserDto;
+  const { username, email, password } = createUserDto;
 
-  if (!name || !email) {
+  if (!username || !email || !password) {
     throw new Error("Name and email are required");
   }
 
@@ -24,9 +25,12 @@ export const createUser = async (createUserDto: CreateUserDto) => {
     throw new Error("Email already exists");
   }
 
+  const hashedPassword = await hash(password, 10);
+
   return User.create({
-    name,
+    username,
     email,
+    password: hashedPassword,
     createdAt: new Date(),
   });
 };

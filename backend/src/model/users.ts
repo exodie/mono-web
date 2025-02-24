@@ -5,6 +5,7 @@ export class User extends Model {
   declare id: number;
   declare name: string;
   declare email: string;
+  declare password: string;
   declare createdAt: Date;
 }
 
@@ -15,7 +16,7 @@ User.init(
       primaryKey: true,
       autoIncrement: true,
     },
-    name: {
+    username: {
       type: DataTypes.STRING(50),
       allowNull: false,
       validate: {
@@ -32,6 +33,14 @@ User.init(
         notEmpty: true,
       },
     },
+    password: {
+      type: DataTypes.STRING(60),
+      allowNull: false,
+      validate: {
+        notEmpty: true,
+        len: [8, 60],
+      },
+    },
     createdAt: {
       type: DataTypes.DATE,
       defaultValue: DataTypes.NOW,
@@ -42,12 +51,5 @@ User.init(
     sequelize,
     modelName: "User",
     timestamps: false,
-    indexes: [
-      {
-        name: "custom_email_unique",
-        unique: true,
-        fields: ["email"],
-      },
-    ],
   }
 );
