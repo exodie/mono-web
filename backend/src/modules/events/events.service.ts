@@ -47,7 +47,7 @@ export const createEvent = async (
   }
 
   return Event.create({
-    createEventDto,
+    ...createEventDto,
     createdAt: new Date(),
   });
 };
