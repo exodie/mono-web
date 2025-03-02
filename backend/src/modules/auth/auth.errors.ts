@@ -3,6 +3,10 @@ import { ErrorMaps } from "../../shared/types";
 
 const errorMap: ErrorMaps = [
   [
+    (error) => error.message === "Email already exists",
+    { status: 400, message: "Email already exists" },
+  ],
+  [
     (error) => error.message === "Email and password are required.",
     { status: 400, message: "Email and password are required." },
   ],
@@ -17,6 +21,14 @@ const errorMap: ErrorMaps = [
   [
     (error) => error.message === "Invalid credentials",
     { status: 401, message: "Invalid credentials" },
+  ],
+  [
+    (error) => error.message === "Invalid token format",
+    { status: 401, message: "Invalid token format" },
+  ],
+  [
+    (error) => error.message === "Token does not have expiration date",
+    { status: 401, message: "Token does not have expiration date" },
   ],
 ];
 

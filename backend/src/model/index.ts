@@ -6,3 +6,4 @@ Event.belongsTo(User, { foreignKey: "createdBy" });
 
 export * from "./events";
 export * from "./users";
+export * from "./tokens";

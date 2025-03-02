@@ -4,7 +4,7 @@ import { CreateUserDto } from "./dto";
 
 export const getAllUsers = async () => {
   return User.findAll({
-    attributes: ["id", "name", "email", "createdAt"],
+    attributes: ["id", "username", "email", "createdAt"],
   });
 };
 

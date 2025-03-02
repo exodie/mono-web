@@ -9,4 +9,5 @@ export enum API_SUBSCRIPTIONS {
 }
 
 export const AUTH_SIGN_UP_ROUTE = "/register";
-export const AUTH_SIGN_IN_ROUTE = "/login"
+export const AUTH_SIGN_IN_ROUTE = "/login";
+export const AUTH_LOGOUT_ROUTE = "/logout";

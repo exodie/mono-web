@@ -33,3 +33,22 @@ export const signIn = async (
     next(error);
   }
 };
+
+export const signOut = async (
+  req: Request,
+  res: Response,
+  next: NextFunction
+) => {
+  try {
+    const token = req.headers.authorization?.split(" ")[1];
+    if (!token) {
+      res.status(401).send();
+      return;
+    }
+
+    await AuthService.revokeToken(token);
+    res.status(200).json({ message: "Successfully logged out" });
+  } catch (error) {
+    next(error);
+  }
+};
