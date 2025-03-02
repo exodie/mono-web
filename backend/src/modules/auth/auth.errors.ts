@@ -22,6 +22,14 @@ const errorMap: ErrorMaps = [
     (error) => error.message === "Invalid credentials",
     { status: 401, message: "Invalid credentials" },
   ],
+  [
+    (error) => error.message === "Invalid token format",
+    { status: 401, message: "Invalid token format" },
+  ],
+  [
+    (error) => error.message === "Token does not have expiration date",
+    { status: 401, message: "Token does not have expiration date" },
+  ],
 ];
 
 export const validateErrors = createErrorMiddleware(errorMap);

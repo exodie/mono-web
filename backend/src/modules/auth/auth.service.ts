@@ -1,5 +1,6 @@
 import { compare } from "bcryptjs";
-import { User } from "../../model";
+import { decode, JwtPayload } from "jsonwebtoken";
+import { User, RevokedToken } from "../../model";
 import { createJwtToken } from "../../shared/utils";
 import { SignInDto } from "./dto";
 
@@ -24,4 +25,22 @@ export const signIn = async (signInDto: SignInDto) => {
   }
 
   return createJwtToken(user.id);
+};
+
+export const revokeToken = async (token: string) => {
+  const decoded = decode(token);
+
+  if (!decoded || typeof decoded === "string") {
+    throw new Error("Invalid token format");
+  }
+
+  const payload = decoded as JwtPayload;
+  if (!payload.exp) {
+    throw new Error("Token does not have expiration date");
+  }
+
+  await RevokedToken.create({
+    token,
+    expiresAt: new Date(payload.exp * 1000),
+  });
 };

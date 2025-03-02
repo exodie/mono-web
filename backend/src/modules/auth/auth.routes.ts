@@ -1,7 +1,8 @@
 import { Router } from "express";
-import { AUTH_SIGN_UP_ROUTE, AUTH_SIGN_IN_ROUTE } from "../../shared/constants";
-import { signUp, signIn } from "./auth.controller";
+import { AUTH_SIGN_UP_ROUTE, AUTH_SIGN_IN_ROUTE, AUTH_LOGOUT_ROUTE } from "../../shared/constants";
+import { signUp, signIn, signOut } from "./auth.controller";
 import { validateErrors } from "./auth.errors";
+import { authenticateUserByJwt } from "./auth.middleware";
 
 export const authRouter = Router();
 
@@ -102,5 +103,23 @@ authRouter.post(AUTH_SIGN_UP_ROUTE, signUp);
  *         description: Внутренняя ошибка сервера
  */
 authRouter.post(AUTH_SIGN_IN_ROUTE, signIn);
+
+/**
+ * @swagger
+ * /auth/logout:
+ *   post:
+ *     summary: Выход из системы
+ *     tags: [Auth]
+ *     security:
+ *       - bearerAuth: []
+ *     responses:
+ *       200:
+ *         description: Успешный выход из системы
+ *       401:
+ *         description: Неавторизованный доступ
+ *       500:
+ *         description: Ошибка сервера
+ */
+authRouter.post(AUTH_LOGOUT_ROUTE, authenticateUserByJwt, signOut);
 
 authRouter.use(validateErrors);
