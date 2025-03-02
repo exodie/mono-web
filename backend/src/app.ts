@@ -9,8 +9,9 @@ import path from "path";
 
 import { logger } from "./shared/utils";
 import { dbAuthenticate } from "./shared/config";
-import { api, getSwaggerOptions } from "./shared/config";
+import { router, getSwaggerOptions } from "./shared/config";
 import { API_ROUTES, API_DOCS, RESERVED_PORT } from "./shared/constants";
+import { configPassport } from "./shared/config";
 
 // Инициализация логов
 const logsDir = path.join(process.cwd(), "logs");
@@ -40,9 +41,10 @@ const runServer = async () => {
         stream: morganStream,
       })
     );
+    app.use(configPassport.initialize());
 
     app.use(API_DOCS, swaggerUi.serve, swaggerUi.setup(swaggerOptions));
-    app.use(API_ROUTES, api);
+    app.use(API_ROUTES, router);
 
     app.listen(PORT, () => {
       logger.info(`Server started on port ${PORT}`);

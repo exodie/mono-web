@@ -3,6 +3,10 @@ import { ErrorMaps } from "../../shared/types";
 
 const errorMap: ErrorMaps = [
   [
+    (error) => error.message === "Email already exists",
+    { status: 400, message: "Email already exists" },
+  ],
+  [
     (error) => error.message === "Email and password are required.",
     { status: 400, message: "Email and password are required." },
   ],

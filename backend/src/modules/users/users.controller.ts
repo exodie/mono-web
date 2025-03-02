@@ -17,7 +17,7 @@ export const createUser = async (req: Request, res: Response, next: NextFunction
     const user = await UsersService.createUser(createUserDto);
     res.status(201).json({
       id: user.id,
-      name: user.name,
+      username: user.username,
       email: user.email,
       createdAt: user.createdAt,
     });

@@ -50,32 +50,6 @@ export const eventsRouter = Router();
 
 /**
  * @swagger
- * /events:
- *   get:
- *     summary: Получить все мероприятия
- *     tags: [Events]
- *     parameters:
- *       - in: query
- *         name: search
- *         schema:
- *           type: string
- *         description: Поиск по названию и описанию
- *     responses:
- *       200:
- *         description: Список мероприятий
- *         content:
- *           application/json:
- *             schema:
- *               type: array
- *               items:
- *                 $ref: '#/components/schemas/Event'
- *       500:
- *         description: Ошибка сервера
- */
-eventsRouter.get("/", getAllEvents);
-
-/**
- * @swagger
  * /events/{id}:
  *   get:
  *     summary: Получить мероприятие по ID
