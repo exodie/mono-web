@@ -1,5 +1,5 @@
-import { Model, DataTypes } from "@sequelize/core";
-import { sequelize } from "../shared/config";
+import { Model, DataTypes } from '@sequelize/core';
+import { sequelize } from '@config/index';
 
 export class User extends Model {
   declare id: number;
@@ -27,7 +27,7 @@ User.init(
     email: {
       type: DataTypes.STRING(100),
       allowNull: false,
-      unique: "custom_email_unique",
+      unique: 'custom_email_unique',
       validate: {
         isEmail: true,
         notEmpty: true,
@@ -49,7 +49,7 @@ User.init(
   },
   {
     sequelize,
-    modelName: "User",
+    modelName: 'User',
     timestamps: false,
-  }
+  },
 );

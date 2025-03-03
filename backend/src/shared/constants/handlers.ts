@@ -1,1 +1,1 @@
-export const GET_SERVER_HEALTH = "/";
+export const GET_SERVER_HEALTH = '/';
