@@ -1,6 +1,8 @@
-import { Op } from "@sequelize/core";
-import { Event, User } from "../../model";
-import { CreateEventDto, UpdateEventDto } from "./dto";
+import { Op } from '@sequelize/core';
+
+import { Event, User } from '@model/index';
+
+import { CreateEventDto, UpdateEventDto } from './dto';
 
 export const getAllEvents = async (searchQuery?: string) => {
   const whereCondition = searchQuery
@@ -18,19 +20,19 @@ export const getAllEvents = async (searchQuery?: string) => {
 export const getEventById = async (id: number) => {
   const event = await Event.findByPk(id);
 
-  if (!event) throw new Error("Event not found");
+  if (!event) throw new Error('Event not found');
 
   return event;
 };
 
 export const createEvent = async (
-  createEventDto: CreateEventDto
+  createEventDto: CreateEventDto,
 ): Promise<Event> => {
   const user = await User.findByPk(createEventDto.createdBy);
-  if (!user) throw new Error("User not found");
+  if (!user) throw new Error('User not found');
 
   // Step: Проверка на дневной лимит создания ивентов
-  const DAILY_EVENT_LIMIT = parseInt(process.env.DAILY_EVENT_LIMIT || "5", 10);
+  const DAILY_EVENT_LIMIT = parseInt(process.env.DAILY_EVENT_LIMIT || '5', 10);
   const twentyFourHoursAgo = new Date(Date.now() - 24 * 60 * 60 * 1000);
 
   const eventCount = await Event.count({
@@ -42,7 +44,7 @@ export const createEvent = async (
 
   if (eventCount >= DAILY_EVENT_LIMIT) {
     throw new Error(
-      `Daily event limit exceeded (max ${DAILY_EVENT_LIMIT} per day)`
+      `Daily event limit exceeded (max ${DAILY_EVENT_LIMIT} per day)`,
     );
   }
 
@@ -54,12 +56,12 @@ export const createEvent = async (
 
 export const updateEvent = async (
   id: number,
-  updates: UpdateEventDto
+  updates: UpdateEventDto,
 ): Promise<Event> => {
   const event = await getEventById(id);
 
   if (updates.title?.trim().length === 0) {
-    throw new Error("Title cannot be empty");
+    throw new Error('Title cannot be empty');
   }
 
   return event.update(updates);

@@ -1,12 +1,12 @@
-import { Router } from "express";
+import { Router } from 'express';
+
 import {
-  getAllEvents,
   getEventById,
   createEvent,
   updateEvent,
   deleteEvent,
-} from "./events.controller";
-import { validateErrors } from "./events.errors";
+} from './events.controller';
+import { validateErrors } from './events.errors';
 
 export const eventsRouter = Router();
 
@@ -73,7 +73,7 @@ export const eventsRouter = Router();
  *       500:
  *         description: Ошибка сервера
  */
-eventsRouter.get("/:id", getEventById);
+eventsRouter.get('/:id', getEventById);
 
 /**
  * @swagger
@@ -105,7 +105,7 @@ eventsRouter.get("/:id", getEventById);
  *       500:
  *         description: Ошибка сервера
  */
-eventsRouter.post("/", createEvent);
+eventsRouter.post('/', createEvent);
 
 /**
  * @swagger
@@ -146,7 +146,7 @@ eventsRouter.post("/", createEvent);
  *       500:
  *         description: Ошибка сервера
  */
-eventsRouter.put("/:id", updateEvent);
+eventsRouter.put('/:id', updateEvent);
 
 /**
  * @swagger
@@ -168,6 +168,6 @@ eventsRouter.put("/:id", updateEvent);
  *       500:
  *         description: Ошибка сервера
  */
-eventsRouter.delete("/:id", deleteEvent);
+eventsRouter.delete('/:id', deleteEvent);
 
 eventsRouter.use(validateErrors);

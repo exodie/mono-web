@@ -1,6 +1,7 @@
-import { Router } from "express";
-import { getAllUsers, createUser } from "./users.controller";
-import { validateErrors } from "./users.errors";
+import { Router } from 'express';
+
+import { getAllUsers, createUser } from './users.controller';
+import { validateErrors } from './users.errors';
 
 export const usersRouter = Router();
 
@@ -57,7 +58,7 @@ export const usersRouter = Router();
  *       500:
  *         description: Ошибка сервера
  */
-usersRouter.get("/", getAllUsers);
+usersRouter.get('/', getAllUsers);
 
 /**
  * @swagger
@@ -83,6 +84,6 @@ usersRouter.get("/", getAllUsers);
  *       500:
  *         description: Ошибка сервера
  */
-usersRouter.post("/", createUser);
+usersRouter.post('/', createUser);
 
 usersRouter.use(validateErrors);

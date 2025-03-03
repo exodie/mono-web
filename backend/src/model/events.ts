@@ -1,6 +1,8 @@
-import { Model, DataTypes } from "@sequelize/core";
-import { sequelize } from "../shared/config";
-import { User } from "./users";
+import { Model, DataTypes } from '@sequelize/core';
+
+import { sequelize } from '@config/index';
+
+import { User } from './users';
 
 export class Event extends Model {
   declare id: number;
@@ -38,7 +40,7 @@ export const EventModel = Event.init(
       index: true,
       references: {
         model: User,
-        key: "id",
+        key: 'id',
       },
     },
     createdAt: {
@@ -49,7 +51,7 @@ export const EventModel = Event.init(
   },
   {
     sequelize,
-    modelName: "Event",
+    modelName: 'Event',
     timestamps: false,
-  }
+  },
 );

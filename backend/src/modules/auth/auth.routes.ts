@@ -1,8 +1,14 @@
-import { Router } from "express";
-import { AUTH_SIGN_UP_ROUTE, AUTH_SIGN_IN_ROUTE, AUTH_LOGOUT_ROUTE } from "../../shared/constants";
-import { signUp, signIn, signOut } from "./auth.controller";
-import { validateErrors } from "./auth.errors";
-import { authenticateUserByJwt } from "./auth.middleware";
+import { Router } from 'express';
+
+import {
+  AUTH_SIGN_UP_ROUTE,
+  AUTH_SIGN_IN_ROUTE,
+  AUTH_LOGOUT_ROUTE,
+} from '@constants/index';
+
+import { signUp, signIn, signOut } from './auth.controller';
+import { validateErrors } from './auth.errors';
+import { authenticateUserByJwt } from './auth.middleware';
 
 export const authRouter = Router();
 
