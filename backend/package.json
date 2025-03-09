@@ -5,9 +5,9 @@
   "scripts": {
     "tsc": "tsc",
     "dev": "nodemon --exec ts-node -r tsconfig-paths/register src/app.ts",
-    "lint": "eslint . --ext .ts",
+    "lint": "eslint *.ts",
     "format": "prettier --write .",
-    "check": "tsc --noEmit && eslint . --ext .ts",
+    "check": "tsc --noEmit && eslint *.ts",
     "prepare": "husky"
   },
   "author": "iamitrofanov",
@@ -55,11 +55,9 @@
     "typescript-eslint": "^8.25.0"
   },
   "lint-staged": {
-    "**/*.{ts,js,json,css,md}": [
-      "prettier --write"
-    ],
     "**/*.ts": [
-      "eslint --fix --max-warnings 0"
+      "npm run lint",
+      "npm run format"
     ]
   }
 }
