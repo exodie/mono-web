@@ -14,7 +14,7 @@ import {
   configPassport,
 } from '@config';
 import { API_ROUTES, API_DOCS, RESERVED_PORT } from '@constants';
-import { logger } from '@util123123s';
+import { logger } from '@utils';
 
 // Инициализация логов
 const logsDir = path.join(process.cwd(), 'logs');

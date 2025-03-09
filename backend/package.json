@@ -8,7 +8,7 @@
     "lint": "eslint . --ext .ts",
     "format": "prettier --write .",
     "check": "tsc --noEmit && eslint . --ext .ts",
-    "prepare": "cd .. && husky install backend/.husky"
+    "prepare": "husky"
   },
   "author": "iamitrofanov",
   "license": "ISC",
@@ -55,12 +55,11 @@
     "typescript-eslint": "^8.25.0"
   },
   "lint-staged": {
-    "*.{js,ts}": [
-      "eslint --fix --max-warnings 0",
+    "**/*.{ts,js,json,css,md}": [
       "prettier --write"
     ],
-    "*.{json,css,md}": [
-      "prettier --write"
+    "**/*.ts": [
+      "eslint --fix --max-warnings 0"
     ]
   }
 }
