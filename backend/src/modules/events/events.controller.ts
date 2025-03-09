@@ -1,6 +1,6 @@
-import { type NextFunction, type Request, type Response } from 'express';
-
 import * as EventsService from './events.service';
+
+import type { NextFunction, Request, Response } from 'express';
 
 export const getAllEvents = async (
   req: Request,

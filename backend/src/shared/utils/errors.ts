@@ -1,5 +1,5 @@
-import { Request, Response, NextFunction } from 'express';
-import type { ErrorMaps } from '@sharedTypes/index';
+import type { ErrorMaps } from '@sharedTypes';
+import type { Request, Response, NextFunction } from 'express';
 
 type ErrorMiddleware = (
   error: Error,

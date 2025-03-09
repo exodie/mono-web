@@ -1,5 +1,6 @@
-import { createErrorMiddleware } from '@utils/index';
-import type { ErrorMaps } from '@sharedTypes/index';
+import { createErrorMiddleware } from '@utils';
+
+import type { ErrorMaps } from '@sharedTypes';
 
 const errorMap: ErrorMaps = [
   [

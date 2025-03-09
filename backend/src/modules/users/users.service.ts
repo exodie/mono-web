@@ -1,6 +1,5 @@
+import { User } from '@model';
 import { hash } from 'bcryptjs';
-
-import { User } from '@model/index';
 
 import type { CreateUserDto } from './dto';
 

@@ -1,7 +1,8 @@
 import { Router } from 'express';
+
+import { API_SUBSCRIPTIONS } from '@constants';
 import { getAllEvents } from '@modules/events/events.controller';
 import { authRouter } from '@modules/auth/auth.routes';
-import { API_SUBSCRIPTIONS } from '@constants/index';
 
 export const publicRouter = Router();
 

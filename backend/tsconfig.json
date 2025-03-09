@@ -8,11 +8,17 @@
     "target": "es2021",
     "baseUrl": ".",
     "paths": {
+      "@utils": ["./src/shared/utils"],
       "@utils/*": ["./src/shared/utils/*"],
+      "@config": ["./src/shared/config"],
       "@config/*": ["./src/shared/config/*"],
+      "@constants": ["./src/shared/constants"],
       "@constants/*": ["./src/shared/constants/*"],
+      "@sharedTypes": ["./src/shared/types"],
       "@sharedTypes/*": ["./src/shared/types/*"],
+      "@model": ["./src/model"],
       "@model/*": ["./src/model/*"],
+      "@modules": ["./src/modules"],
       "@modules/*": ["./src/modules/*"]
     },
     "experimentalDecorators": true,

@@ -1,5 +1,5 @@
-import { User } from './users';
 import { Event } from './events';
+import { User } from './users';
 
 // Жду NestJS
 User.hasMany(Event, { foreignKey: 'createdBy' });

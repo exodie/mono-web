@@ -2,8 +2,8 @@ import { Sequelize } from '@sequelize/core';
 import { PostgresDialect } from '@sequelize/postgres';
 import { config } from 'dotenv';
 
-import { logger } from '@utils/index';
-import { REVERSED_DB_PORT } from '@constants/index';
+import { REVERSED_DB_PORT } from '@constants';
+import { logger } from '@utils';
 
 config();
 

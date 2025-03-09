@@ -1,20 +1,20 @@
-import express from 'express';
 import cors from 'cors';
 import { config } from 'dotenv';
+import express from 'express';
+import fs from 'fs';
 import morgan from 'morgan';
+import path from 'path';
 import swaggerJSDoc from 'swagger-jsdoc';
 import swaggerUi from 'swagger-ui-express';
-import fs from 'fs';
-import path from 'path';
 
-import { logger } from '@utils/index';
 import {
   router,
   getSwaggerOptions,
   dbAuthenticate,
   configPassport,
-} from '@config/index';
-import { API_ROUTES, API_DOCS, RESERVED_PORT } from '@constants/index';
+} from '@config';
+import { API_ROUTES, API_DOCS, RESERVED_PORT } from '@constants';
+import { logger } from '@utils';
 
 // Инициализация логов
 const logsDir = path.join(process.cwd(), 'logs');

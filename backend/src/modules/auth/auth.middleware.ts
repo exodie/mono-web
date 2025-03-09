@@ -1,7 +1,7 @@
-import { type Request, type Response, type NextFunction } from 'express';
+import type { Request, Response, NextFunction } from 'express';
 import passport from 'passport';
 
-import { RevokedToken } from '@model/index';
+import { RevokedToken } from '@model';
 
 export const authenticateUserByJwt = async (
   req: Request,

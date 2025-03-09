@@ -1,8 +1,8 @@
 import { compare } from 'bcryptjs';
-import { decode, JwtPayload } from 'jsonwebtoken';
+import { decode, type JwtPayload } from 'jsonwebtoken';
 
-import { User, RevokedToken } from '@model/index';
-import { createJwtToken } from '@utils/index';
+import { User, RevokedToken } from '@model';
+import { createJwtToken } from '@utils';
 
 import type { SignInDto } from './dto';
 

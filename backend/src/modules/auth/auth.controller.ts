@@ -1,10 +1,10 @@
-import { NextFunction, Request, Response } from 'express';
-
 import * as UsersService from '@modules/users/users.service';
-import * as AuthService from './auth.service';
 
+import * as AuthService from './auth.service';
 import type { CreateUserDto } from '@modules/users/dto';
+
 import type { SignInDto } from './dto';
+import type { NextFunction, Request, Response } from 'express';
 
 export const signUp = async (
   req: Request,

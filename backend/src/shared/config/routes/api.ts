@@ -1,7 +1,7 @@
 import { Router } from 'express';
 
-import { API_SUBSCRIPTIONS } from '@constants/index';
-import { eventsRouter, usersRouter } from '@modules/index';
+import { API_SUBSCRIPTIONS } from '@constants';
+import { eventsRouter, usersRouter } from '@modules';
 
 export const api = Router();
 

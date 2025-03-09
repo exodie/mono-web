@@ -1,8 +1,7 @@
-import { NextFunction, Request, Response } from 'express';
-
 import * as UsersService from './users.service';
 
-import { type CreateUserDto } from './dto';
+import type { CreateUserDto } from './dto';
+import type { NextFunction, Request, Response } from 'express';
 
 export const getAllUsers = async (
   _: Request,

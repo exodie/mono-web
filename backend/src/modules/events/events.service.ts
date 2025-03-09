@@ -1,6 +1,6 @@
 import { Op } from '@sequelize/core';
 
-import { Event, User } from '@model/index';
+import { Event, User } from '@model';
 
 import { CreateEventDto, UpdateEventDto } from './dto';
 

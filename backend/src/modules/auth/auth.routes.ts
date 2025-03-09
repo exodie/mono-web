@@ -4,7 +4,7 @@ import {
   AUTH_SIGN_UP_ROUTE,
   AUTH_SIGN_IN_ROUTE,
   AUTH_LOGOUT_ROUTE,
-} from '@constants/index';
+} from '@constants';
 
 import { signUp, signIn, signOut } from './auth.controller';
 import { validateErrors } from './auth.errors';

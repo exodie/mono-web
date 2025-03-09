@@ -1,6 +1,5 @@
+import { sequelize } from '@config';
 import { Model, DataTypes } from '@sequelize/core';
-
-import { sequelize } from '@config/index';
 
 import { User } from './users';
 

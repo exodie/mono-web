@@ -1,7 +1,8 @@
-import globals from 'globals';
 import pluginJs from '@eslint/js';
-import tseslint from 'typescript-eslint';
+import importPlugin from 'eslint-plugin-import';
 import prettier from 'eslint-plugin-prettier';
+import globals from 'globals';
+import tseslint from 'typescript-eslint';
 
 /** @type {import('eslint').Linter.Config[]} */
 export default [
@@ -17,6 +18,7 @@ export default [
   {
     plugins: {
       prettier,
+      import: importPlugin,
     },
     rules: {
       'prettier/prettier': [
@@ -28,6 +30,17 @@ export default [
           trailingComma: 'all',
         },
       ],
+      'no-unused-vars': 'off',
+      '@typescript-eslint/no-unused-vars': [
+        'error',
+        {
+          vars: 'all',
+          args: 'after-used',
+          ignoreRestSiblings: true,
+        },
+      ],
+      '@typescript-eslint/no-import-type-side-effects': 'error',
+      'no-duplicate-imports': 'error',
     },
   },
 ];
