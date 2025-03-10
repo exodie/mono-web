@@ -18,6 +18,11 @@ is_backend_file() {
   [[ "$1" == backend/* ]]
 }
 
+# Функция для проверки, принадлежит ли файл фронтенду
+is_frontend_file() {
+  [[ "$1" == frontend/* ]]
+}
+
 # Флаг для отслеживания, были ли ошибки
 ERRORS=0
 
@@ -28,6 +33,12 @@ for FILE in $STAGED_FILES; do
     
     if is_backend_file "$FILE"; then
       cd backend && npx eslint --format stylish "$(echo $FILE | sed 's|^backend/||')" --no-fix
+      if [ $? -ne 0 ]; then
+        ERRORS=1
+      fi
+      cd ..
+    elif is_frontend_file "$FILE"; then
+      cd frontend && npx eslint --format stylish "$(echo $FILE | sed 's|^frontend/||')" --no-fix
       if [ $? -ne 0 ]; then
         ERRORS=1
       fi
