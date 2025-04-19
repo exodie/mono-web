@@ -1,8 +1,8 @@
-import { Strategy as JwtStrategy, ExtractJwt } from "passport-jwt";
-import passport from "passport";
-import { config } from "dotenv";
+import { config } from 'dotenv';
+import passport from 'passport';
+import { Strategy as JwtStrategy, ExtractJwt } from 'passport-jwt';
 
-import { User } from "../../model";
+import { User } from '@model';
 
 config();
 
@@ -24,5 +24,5 @@ export const configPassport = passport.use(
     } catch (error) {
       return done(error, false);
     }
-  })
+  }),
 );

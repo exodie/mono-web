@@ -1,9 +1,10 @@
-import { User } from "./users";
-import { Event } from "./events";
+import { Event } from './events';
+import { User } from './users';
 
-User.hasMany(Event, { foreignKey: "createdBy" });
-Event.belongsTo(User, { foreignKey: "createdBy" });
+// Жду NestJS
+User.hasMany(Event, { foreignKey: 'createdBy' });
+Event.belongsTo(User, { foreignKey: 'createdBy' });
 
-export * from "./events";
-export * from "./users";
-export * from "./tokens";
+export * from './events';
+export * from './users';
+export * from './tokens';

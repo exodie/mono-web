@@ -1,5 +1,5 @@
-import { Model, DataTypes } from "@sequelize/core";
-import { sequelize } from "../shared/config";
+import { sequelize } from '@config';
+import { Model, DataTypes } from '@sequelize/core';
 
 export class RevokedToken extends Model {
   declare token: string;
@@ -19,7 +19,7 @@ RevokedToken.init(
   },
   {
     sequelize,
-    modelName: "RevokedToken",
+    modelName: 'RevokedToken',
     timestamps: false,
-  }
+  },
 );

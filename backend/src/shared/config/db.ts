@@ -1,9 +1,9 @@
-import { Sequelize } from "@sequelize/core";
-import { PostgresDialect } from "@sequelize/postgres";
-import { config } from "dotenv";
+import { Sequelize } from '@sequelize/core';
+import { PostgresDialect } from '@sequelize/postgres';
+import { config } from 'dotenv';
 
-import { logger } from "../utils";
-import { REVERSED_DB_PORT } from "../constants";
+import { REVERSED_DB_PORT } from '@constants';
+import { logger } from '@utils';
 
 config();
 
@@ -15,7 +15,7 @@ export const sequelize = new Sequelize({
   host: process.env.DB_HOST,
   port: Number(process.env.DB_PORT) || REVERSED_DB_PORT,
   logging: (msg) => logger.debug(msg),
-  clientMinMessages: "notice",
+  clientMinMessages: 'notice',
   logQueryParameters: true,
   benchmark: true,
 });
@@ -23,11 +23,11 @@ export const sequelize = new Sequelize({
 export const dbAuthenticate = async () => {
   try {
     await sequelize.authenticate();
-    logger.info("Models synchronized successfully");
+    logger.info('Models synchronized successfully');
     await sequelize.sync({ alter: true });
-    logger.info("Database connection established");
+    logger.info('Database connection established');
   } catch (e) {
-    logger.error("Database connection/sync failed", e);
+    logger.error('Database connection/sync failed', e);
 
     throw e;
   }

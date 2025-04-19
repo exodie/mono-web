@@ -1,8 +1,13 @@
-import { NextFunction, Request, Response } from "express";
-import * as UsersService from "./users.service";
-import { type CreateUserDto } from "./dto";
+import * as UsersService from './users.service';
 
-export const getAllUsers = async (_: Request, res: Response, next: NextFunction) => {
+import type { CreateUserDto } from './dto';
+import type { NextFunction, Request, Response } from 'express';
+
+export const getAllUsers = async (
+  _: Request,
+  res: Response,
+  next: NextFunction,
+) => {
   try {
     const users = await UsersService.getAllUsers();
     res.status(200).json(users);
@@ -11,7 +16,11 @@ export const getAllUsers = async (_: Request, res: Response, next: NextFunction)
   }
 };
 
-export const createUser = async (req: Request, res: Response, next: NextFunction) => {
+export const createUser = async (
+  req: Request,
+  res: Response,
+  next: NextFunction,
+) => {
   try {
     const createUserDto: CreateUserDto = req.body;
     const user = await UsersService.createUser(createUserDto);

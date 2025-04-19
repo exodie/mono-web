@@ -1,21 +1,21 @@
-import { Request, Response, NextFunction } from "express";
-import type { ErrorMaps } from "../../shared/types";
+import type { ErrorMaps } from '@sharedTypes';
+import type { Request, Response, NextFunction } from 'express';
 
 type ErrorMiddleware = (
   error: Error,
   req: Request,
   res: Response,
-  next: NextFunction
+  next: NextFunction,
 ) => void;
 
 export const createErrorMiddleware = (errorMap: ErrorMaps): ErrorMiddleware => {
   return (error, _req, res, next) => {
     try {
-      console.error("Error occurred:", error);
+      console.error('Error occurred:', error);
 
       // Если ответ уже отправлен - передаем ошибку дальше
       if (res.headersSent) {
-        console.warn("Response already sent, forwarding error");
+        console.warn('Response already sent, forwarding error');
         return next(error);
       }
 
@@ -24,7 +24,7 @@ export const createErrorMiddleware = (errorMap: ErrorMaps): ErrorMiddleware => {
         try {
           return condition(error);
         } catch (e) {
-          console.error("Error in condition handler:", e);
+          console.error('Error in condition handler:', e);
           return false;
         }
       });
@@ -41,14 +41,14 @@ export const createErrorMiddleware = (errorMap: ErrorMaps): ErrorMiddleware => {
       }
 
       // Дефолтная обработка
-      console.error("Unhandled error type:", error);
+      console.error('Unhandled error type:', error);
       res.status(500).json({
         status: 500,
-        message: "Internal server error",
+        message: 'Internal server error',
         timestamp: new Date().toISOString(),
       });
     } catch (middlewareError) {
-      console.error("Error in error middleware:", middlewareError);
+      console.error('Error in error middleware:', middlewareError);
       next(middlewareError);
     } finally {
       next();

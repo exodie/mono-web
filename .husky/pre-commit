@@ -1,0 +1,52 @@
+#!/usr/bin/env sh
+. "$(dirname -- "$0")/_/husky.sh"
+
+echo "\033[1;36m┌────────────────────────────────────────┐"
+echo "│  🧪 Запуск проверки кода перед коммитом  │"
+echo "└────────────────────────────────────────┘\033[0m"
+
+# Получаем список staged файлов
+STAGED_FILES=$(git diff --cached --name-only --diff-filter=ACM)
+
+# Функция для проверки расширения файла
+is_typescript_file() {
+  [[ "$1" == *.ts || "$1" == *.tsx ]]
+}
+
+# Функция для проверки, принадлежит ли файл бэкенду
+is_backend_file() {
+  [[ "$1" == backend/* ]]
+}
+
+# Флаг для отслеживания, были ли ошибки
+ERRORS=0
+
+# Проверяем только файлы, добавленные в индекс
+for FILE in $STAGED_FILES; do
+  if is_typescript_file "$FILE"; then
+    echo "\033[1;36mПроверка файла:\033[0m $FILE"
+    
+    if is_backend_file "$FILE"; then
+      cd backend && npx eslint --format stylish "$(echo $FILE | sed 's|^backend/||')" --no-fix
+      if [ $? -ne 0 ]; then
+        ERRORS=1
+      fi
+      cd ..
+    else
+      npx eslint --format stylish "$FILE" --no-fix
+      if [ $? -ne 0 ]; then
+        ERRORS=1
+      fi
+    fi
+  fi
+done
+
+# Если нет ошибок, запускаем lint-staged для автоматических исправлений
+if [ $ERRORS -eq 0 ]; then
+  npx lint-staged
+  LINT_STAGED_STATUS=$?
+  
+  if [ $LINT_STAGED_STATUS -ne 0 ]; then
+    ERRORS=1
+  fi
+fi
