@@ -6,8 +6,9 @@
     "frontend"
   ],
   "scripts": {
-    "lint": "npm run lint:backend",
+    "lint": "npm run lint:backend && npm run lint:frontend",
     "lint:backend": "cd backend && npm run lint",
+    "lint:frontend": "cd frontend && npm run lint",
     "prepare": "husky"
   },
   "devDependencies": {
@@ -15,6 +16,11 @@
     "lint-staged": "^15.4.3"
   },
   "lint-staged": {
-    "backend/**/*.ts": ["cd backend && eslint --fix"]
+    "backend/**/*.ts": [
+      "cd backend && eslint --fix"
+    ],
+    "frontend/**/*.{ts,tsx}": [
+      "cd frontend && eslint --fix"
+    ]
   }
 }

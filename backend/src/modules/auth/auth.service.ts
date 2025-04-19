@@ -8,7 +8,6 @@ import type { SignInDto } from './dto';
 
 export const signIn = async (signInDto: SignInDto) => {
   const { email, password } = signInDto;
-
   if (!email || !password) throw new Error('Email and password are required.');
 
   const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;

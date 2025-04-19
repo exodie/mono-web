@@ -1,13 +1,14 @@
 {
   "name": "backend",
-  "version": "0.9.1",
+  "version": "0.9.2",
   "main": "./src/app.ts",
   "scripts": {
     "tsc": "tsc",
     "dev": "nodemon --exec ts-node -r tsconfig-paths/register src/app.ts",
-    "lint": "eslint *.ts",
+    "lint": "eslint \"src/**/*.ts\"",
+    "lint:fix": "eslint --fix \"src/**/*.ts\"",
     "format": "prettier --write .",
-    "check": "tsc --noEmit && eslint *.ts",
+    "check": "tsc --noEmit && eslint \"src/**/*.ts\"",
     "prepare": "husky"
   },
   "author": "iamitrofanov",
