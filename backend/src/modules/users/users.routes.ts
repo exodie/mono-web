@@ -1,7 +1,14 @@
 import { Router } from 'express';
 
-import { getAllUsers, createUser } from './users.controller';
+import {
+  getAllUsers,
+  createUser,
+  getCurrentUser,
+  getUser,
+  updateProfile,
+} from './users.controller';
 import { validateErrors } from './users.errors';
+import { authenticateUserByJwt } from '../auth/auth.middleware';
 
 export const usersRouter = Router();
 
@@ -85,5 +92,29 @@ usersRouter.get('/', getAllUsers);
  *         description: Ошибка сервера
  */
 usersRouter.post('/', createUser);
+
+/**
+ * @swagger
+ * /users/me:
+ *   get:
+ *     summary: Получить информацию о текущем пользователе
+ *     tags: [Users]
+ *     security:
+ *       - bearerAuth: []
+ *     responses:
+ *       200:
+ *         description: Информация о пользователе
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/User'
+ *       401:
+ *         description: Не авторизован
+ *       500:
+ *         description: Ошибка сервера
+ */
+usersRouter.get('/whoami', getCurrentUser);
+usersRouter.put('/profile', authenticateUserByJwt, updateProfile);
+usersRouter.get('/:id', getUser);
 
 usersRouter.use(validateErrors);
