@@ -5,3 +5,9 @@ export type EventsType = {
   createdBy: number;
   createdAt: string;
 };
+
+export interface EventsState {
+  data: EventsType[];
+  isLoading: boolean;
+  error: string | null;
+}

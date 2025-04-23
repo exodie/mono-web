@@ -1,7 +1,7 @@
 import { createBrowserRouter, Navigate } from 'react-router';
 import Cookies from 'js-cookie';
 
-import { App, Auth, SignIn, SignUp, NotFound, Events } from '@/pages';
+import { App, Auth, SignIn, SignUp, NotFound, Events, Account } from '@/pages';
 
 import { AppLayout } from '@/components';
 
@@ -60,8 +60,7 @@ export const router = createBrowserRouter([
         path: 'account',
         element: (
           <PrivateRoute>
-            <>Аккаунт</>
-            {/* <Account /> */}
+            <Account />
           </PrivateRoute>
         ),
       },
