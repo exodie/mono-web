@@ -13,3 +13,30 @@ export type SignUpFormProps = {
   password: FormFieldProps;
   repeatPassword: FormFieldProps;
 };
+
+export interface SignUpDto {
+  username: string;
+  firstName: string;
+  lastName: string;
+  middleName?: string;
+  gender: 'male' | 'female';
+  birthDate: string;
+  email: string;
+  password: string;
+}
+
+export interface UpdateProfileDto {
+  username?: string;
+  firstName?: string;
+  lastName?: string;
+  middleName?: string | null;
+  gender?: 'male' | 'female';
+  birthDate?: string;
+  email?: string;
+  password?: string;
+}
+
+export interface SignInDto {
+  email: string;
+  password: string;
+}
